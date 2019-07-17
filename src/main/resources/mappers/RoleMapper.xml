@@ -1,0 +1,9 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.interfaceMapper.RoleMapper">
+    <resultMap id="RoleResultMap" type="Role" >
+        <result column="rol" property="rol" />
+    </resultMap>
+    <select id="getRoles" resultMap="RoleResultMap">
+            select * from role
+    </select>
+</mapper>
