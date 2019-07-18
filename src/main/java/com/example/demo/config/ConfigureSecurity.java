@@ -58,10 +58,10 @@ public class ConfigureSecurity extends WebSecurityConfigurerAdapter {
          * //.antMatchers("/programa").hasAuthority("ROL") .anyRequest().denyAll()
          * .and().formLogin();
          */
-        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/api/*").permitAll()
-                /*.antMatchers("/")
-                .hasAuthority("USUARIO").antMatchers("/pruebaAdmin").hasAuthority("ADMINISTRADOR")*/
-                // .antMatchers("/programa").hasAuthority("ROL")
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/api/**").permitAll()
+                .antMatchers("/").hasAuthority("USUARIO")
+                .antMatchers("/pruebaAdmin").permitAll()
+                .antMatchers("/programa").hasAuthority("ROL")
                 .anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

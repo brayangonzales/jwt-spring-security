@@ -30,18 +30,13 @@ public class AuthenticationController {
     public String prueba(@RequestBody Role rol){
         return rol.getRol();
     }
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @RequestMapping(value = "/authenticate/{username}/{password}", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<AuthToken> register(@RequestBody User loginUser) throws AuthenticationException {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
+    public ApiResponse<AuthToken> register(@PathVariable("username") String username,@PathVariable("password") String password)  throws AuthenticationException {
+        User loginUser= new User();
+        loginUser.setPassword(password);
+        loginUser.setUserName(username);
         System.out.println(loginUser.getUserName()+"  "+loginUser.getPassword());
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUserName(), loginUser.getPassword()));
         final User user = userService.findOne(loginUser.getUserName());
         final String token = jwtTokenUtil.generateToken(user);
