@@ -59,8 +59,13 @@ public class ConfigureSecurity extends WebSecurityConfigurerAdapter {
          * .and().formLogin();
          */
         http.cors().and().csrf().disable().authorizeRequests().antMatchers("/api/**").permitAll()
-                .antMatchers("/").hasAuthority("USUARIO")
-                .antMatchers("/pruebaAdmin").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/*.js").permitAll()
+                .antMatchers("/app/**").permitAll()
+                .antMatchers("/assets/ariesLogo.png").permitAll()
+                .antMatchers("/icons.woff2").permitAll()
+                .antMatchers("/icons.woff").permitAll()
+                .antMatchers("/icons.ttf").permitAll()
                 .antMatchers("/programa").hasAuthority("ROL")
                 .anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
